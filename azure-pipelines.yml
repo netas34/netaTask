@@ -1,0 +1,14 @@
+#Your build pipeline references the ‘storageAccountName’ variable, which you’ve selected to be settable at queue time. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab, and then select the option to make it settable at queue time. See https://go.microsoft.com/fwlink/?linkid=865971
+variables:
+  subscriptionId: 'a8108c2b-496c-424d-8347-ecc8afb6384c'
+  resourceGroupName: 'netaTask'
+  deploymentName: 'NetaTaskDep'
+  parametersFilePath: 'C:\Users\netas34\parameters.json'
+
+steps:
+- task: PowerShell@2
+  displayName: 'PowerShell Script'
+  inputs:
+    targetType: filePath
+    filePath: './$(System.DefaultWorkingDirectory)/_Neta Task/storageaccount/Deploy_Storage_Account.ps1'
+    arguments: '-subscriptionId $(subscriptionId) -resourceGroupName $(resourceGroupName) -deploymentName $(deploymentName) -StorageAccountName $(storageAccountName) -TemplateParameterFile  $(parametersFilePath)'
